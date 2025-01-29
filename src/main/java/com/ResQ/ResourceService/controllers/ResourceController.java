@@ -6,6 +6,8 @@ import com.ResQ.ResourceService.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/resource")
 public class ResourceController {
@@ -15,6 +17,23 @@ public class ResourceController {
 
     @Autowired
     private ResponseDto responseDto;
+
+    //get all the resources
+    @GetMapping("/getAllResources")
+    public ResponseDto getAllResources(){
+        List<ResourceDto> existingResources = resourceService.getAllResources();
+
+        if(existingResources.size() > 0){
+            responseDto.setStatus_code("200");
+            responseDto.setMessage("Resources found successfully");
+            responseDto.setData(existingResources);
+        }else{
+            responseDto.setStatus_code("404");
+            responseDto.setMessage("No patients found");
+            responseDto.setData(null);
+        }
+        return responseDto;
+    }
 
     //save a resource in the database
     @PostMapping("/saveResource")

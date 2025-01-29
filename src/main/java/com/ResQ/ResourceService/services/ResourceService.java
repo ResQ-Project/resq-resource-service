@@ -6,8 +6,12 @@ import com.ResQ.ResourceService.repo.ResourceRepo;
 import com.ResQ.ResourceService.utils.VarList;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,6 +22,12 @@ public class ResourceService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    //view all the resources
+    public List<ResourceDto> getAllResources(){
+        List<Resource> existingResources = resourceRepo.findAll();
+        return modelMapper.map(existingResources, new TypeToken<ArrayList<ResourceDto>>(){}.getType());
+    }
 
     //save a resource in the database
     public String saveResource(ResourceDto resourceDto){
