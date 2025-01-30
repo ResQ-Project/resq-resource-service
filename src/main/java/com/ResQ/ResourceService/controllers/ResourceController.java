@@ -55,4 +55,21 @@ public class ResourceController {
 
         return responseDto;
     }
+
+    //update a resource
+    @PutMapping("/updateResource/{resource_id}")
+    public ResponseDto updateResource(@PathVariable Integer resource_id, @RequestBody ResourceDto resourceDto){
+        String res = resourceService.updateResource(resource_id, resourceDto);
+        if(res.equals("00")){
+            responseDto.setStatus_code("201");
+            responseDto.setMessage("Resource updated successfully");
+            responseDto.setData(resourceDto);
+        }else{
+            responseDto.setStatus_code("400");
+            responseDto.setMessage("Error");
+            responseDto.setData(null);
+        }
+
+        return responseDto;
+    }
 }

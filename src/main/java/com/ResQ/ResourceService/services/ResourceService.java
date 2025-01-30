@@ -42,4 +42,19 @@ public class ResourceService {
             return VarList.RSP_ERROR;
         }
     }
+
+    //update a resource
+    public String updateResource(int resource_id, ResourceDto resourceDto){
+        try{
+            if(resourceRepo.existsById(resource_id)){
+                resourceRepo.save(modelMapper.map(resourceDto, Resource.class));
+                return VarList.RSP_SUCCESS;
+            }else{
+                return VarList.RSP_ERROR;
+            }
+        } catch (Exception e) {
+            return VarList.RSP_ERROR;
+        }
+
+    }
 }
