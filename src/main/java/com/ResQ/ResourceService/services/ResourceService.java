@@ -29,6 +29,30 @@ public class ResourceService {
         return modelMapper.map(existingResources, new TypeToken<ArrayList<ResourceDto>>(){}.getType());
     }
 
+    //get single resource by id
+    public ResourceDto getSingleResourceById(Integer resource_id){
+        try{
+            if(resourceRepo.existsById(resource_id)){
+                return modelMapper.map(resourceRepo.findById(resource_id), ResourceDto.class);
+            }else{
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    //get single resource by resource_name //search purpose
+    public ResourceDto getSingleResourceByName(String category){
+        Resource existingResource = resourceRepo.findByCategory(category);
+        if(existingResource == null){
+            return null;
+        }else{
+            return modelMapper.map(existingResource, ResourceDto.class);
+        }
+    }
+
     //save a resource in the database
     public String saveResource(ResourceDto resourceDto){
         try{

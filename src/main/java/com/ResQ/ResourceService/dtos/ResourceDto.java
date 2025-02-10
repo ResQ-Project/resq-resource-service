@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class ResourceDto {
     private Integer resource_id;
     private String category;
-    private Integer count;
+    private Integer fullCount;
+    private Integer availableUnits;
 }

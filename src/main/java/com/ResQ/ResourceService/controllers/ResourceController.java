@@ -35,6 +35,40 @@ public class ResourceController {
         return responseDto;
     }
 
+    //get a single resource by Id
+    @GetMapping("/getSingleResource/{resource_id}")
+    public ResponseDto getSingleResourceById(@PathVariable Integer resource_id){
+        ResourceDto resource = resourceService.getSingleResourceById(resource_id);
+        if(resource != null){
+            responseDto.setStatus_code("200");
+            responseDto.setMessage("Resource found successfully");
+            responseDto.setData(resource);
+        }else{
+            responseDto.setStatus_code("404");
+            responseDto.setMessage("No resources found");
+            responseDto.setData(null);
+        }
+        return responseDto;
+    }
+
+    //get resource by resourceName
+    @GetMapping("/getResourceByName/{resourceName}")
+    public ResponseDto getResourceByName(@PathVariable String resourceName){
+        ResourceDto resource = resourceService.getSingleResourceByName(resourceName);
+        if(resource != null){
+            responseDto.setStatus_code("200");
+            responseDto.setMessage("Resource found successfully");
+            responseDto.setData(resource);
+        }else{
+            responseDto.setStatus_code("404");
+            responseDto.setMessage("No resources found");
+            responseDto.setData(null);
+        }
+        return responseDto;
+
+    }
+
+
     //save a resource in the database
     @PostMapping("/saveResource")
     public ResponseDto saveResource(@RequestBody ResourceDto resourceDto){
