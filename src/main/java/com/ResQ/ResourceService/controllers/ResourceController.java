@@ -29,7 +29,7 @@ public class ResourceController {
             responseDto.setData(existingResources);
         }else{
             responseDto.setStatus_code("404");
-            responseDto.setMessage("No patients found");
+            responseDto.setMessage("No Resources found");
             responseDto.setData(null);
         }
         return responseDto;
@@ -73,14 +73,14 @@ public class ResourceController {
     @PostMapping("/saveResource")
     public ResponseDto saveResource(@RequestBody ResourceDto resourceDto){
         String res = resourceService.saveResource(resourceDto);
-        if(res.equals("00")){
+        if(res.equals("SUCCESS")){
             responseDto.setStatus_code("201");
             responseDto.setMessage("Resource saved successfully");
             responseDto.setData(resourceDto);
-        }else if(res.equals("02")){
+        }else if(res.equals("Same_Resource_Already_Exist")){
             responseDto.setStatus_code("400");
-            responseDto.setMessage("Resource Already Exists with that National ID");
-            responseDto.setData(resourceDto);
+            responseDto.setMessage("Same Resource Already Available");
+            responseDto.setData(null);
         } else{
             responseDto.setStatus_code("400");
             responseDto.setMessage("Error");
@@ -94,7 +94,7 @@ public class ResourceController {
     @PutMapping("/updateResource/{resource_id}")
     public ResponseDto updateResource(@PathVariable Integer resource_id, @RequestBody ResourceDto resourceDto){
         String res = resourceService.updateResource(resource_id, resourceDto);
-        if(res.equals("00")){
+        if(res.equals("SUCCESS")){
             responseDto.setStatus_code("201");
             responseDto.setMessage("Resource updated successfully");
             responseDto.setData(resourceDto);

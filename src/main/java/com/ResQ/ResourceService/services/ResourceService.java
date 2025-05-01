@@ -57,13 +57,13 @@ public class ResourceService {
     public String saveResource(ResourceDto resourceDto){
         try{
             if(resourceRepo.existsById(resourceDto.getResource_id())){
-                return VarList.RSP_DUPLICATE;
+                return "Same_Resource_Already_Exist";
             }else{
                 resourceRepo.save(modelMapper.map(resourceDto, Resource.class));
-                return VarList.RSP_SUCCESS;
+                return "SUCCESS";
             }
         }catch (Exception e){
-            return VarList.RSP_ERROR;
+            return "Error";
         }
     }
 
@@ -72,12 +72,12 @@ public class ResourceService {
         try{
             if(resourceRepo.existsById(resource_id)){
                 resourceRepo.save(modelMapper.map(resourceDto, Resource.class));
-                return VarList.RSP_SUCCESS;
+                return "SUCCESS";
             }else{
-                return VarList.RSP_ERROR;
+                return "Error";
             }
         } catch (Exception e) {
-            return VarList.RSP_ERROR;
+            return "Error";
         }
 
     }
